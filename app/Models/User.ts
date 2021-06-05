@@ -18,7 +18,7 @@ export default class User extends BaseModel {
   public remember_me_token: string
 
   @column()
-  public type: ['admin', 'vendor']
+  public type: 'admin' | 'vendor'
 
   @column()
   public first_name: string
