@@ -1,5 +1,5 @@
 import { BaseModel, belongsTo, BelongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import ProductCategory from './ProductCategory';
+import ProductCategory from './ProductCategory'
 
 export default class ProductSubCategory extends BaseModel {
   @column({ isPrimary: true })
@@ -8,9 +8,12 @@ export default class ProductSubCategory extends BaseModel {
   @column()
   public name: string
 
-  @belongsTo(() => ProductCategory)
-  public product_category_id: BelongsTo<typeof ProductCategory>
+  @column()
+  public product_category_id: number
+
+  @belongsTo(() => ProductCategory, { foreignKey: 'product_category_id' })
+  public product_category: BelongsTo<typeof ProductCategory>
 
   @column()
-  public status: boolean;
+  public status: boolean
 }

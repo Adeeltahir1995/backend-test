@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasOne, HasOne } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, belongsTo, BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
 import ProductCategory from './ProductCategory'
 import ProductSubCategory from './ProductSubCategory'
@@ -8,14 +8,23 @@ export default class Product extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @hasOne(() => User)
-  public user_id: HasOne<typeof User>
+  @column()
+  public user_id: number;
 
-  @hasOne(() => ProductCategory)
-  public product_category_id: HasOne<typeof ProductCategory>
+  @belongsTo(() => User, { foreignKey: 'user_id' })
+  public user: BelongsTo<typeof User>
 
-  @hasOne(() => ProductSubCategory)
-  public product_sub_category_id: HasOne<typeof ProductSubCategory>
+  @column()
+  public product_category_id: number;
+
+  @belongsTo(() => ProductCategory, { foreignKey: 'product_category_id' })
+  public product_category: BelongsTo<typeof ProductCategory>
+
+  @column()
+  public product_sub_category_id: number;
+
+  @belongsTo(() => ProductSubCategory, { foreignKey: 'product_sub_category_id' })
+  public product_sub_category: BelongsTo<typeof ProductSubCategory>
 
   @column()
   public title: string
